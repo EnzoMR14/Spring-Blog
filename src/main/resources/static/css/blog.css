@@ -1,0 +1,82 @@
+:root {
+    --ink: #1f2937;
+    --muted: #6b7280;
+    --accent: #1e3a5f;
+    --accent-dark: #14283f;
+    --paper: #f8f7f4;
+    --line: #e5e7eb;
+}
+
+body {
+    font-family: 'Inter', system-ui, sans-serif;
+    color: var(--ink);
+    background: #fff;
+}
+
+h1, h2, h3, h4, .navbar-brand {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 700;
+}
+
+.navbar {
+    border-bottom: 1px solid var(--line);
+    background: #fff;
+}
+.navbar-brand { color: var(--accent); font-size: 1.6rem; }
+.nav-link { color: var(--ink); font-weight: 500; }
+.nav-link:hover, .nav-link.active { color: var(--accent); }
+
+.btn-accent {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+    padding: .6rem 1.6rem;
+}
+.btn-accent:hover { background: var(--accent-dark); border-color: var(--accent-dark); color: #fff; }
+
+.hero .carousel-item img {
+    height: 70vh;
+    min-height: 380px;
+    object-fit: cover;
+    filter: brightness(.55);
+}
+.hero .carousel-caption { bottom: 25%; }
+.hero .carousel-caption h1 { font-size: clamp(2rem, 5vw, 3.5rem); }
+
+.section { padding: 4rem 0; }
+.section-alt { background: var(--paper); }
+.section-title { text-align: center; margin-bottom: 2.5rem; }
+.section-title::after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: var(--accent);
+    margin: .8rem auto 0;
+}
+
+.feature-card {
+    border: 1px solid var(--line);
+    border-radius: .75rem;
+    padding: 2rem;
+    height: 100%;
+    background: #fff;
+    transition: transform .2s, box-shadow .2s;
+}
+.feature-card:hover { transform: translateY(-4px); box-shadow: 0 10px 25px rgba(0,0,0,.08); }
+.feature-card i { font-size: 2rem; color: var(--accent); }
+
+.form-card {
+    border: 1px solid var(--line);
+    border-radius: .75rem;
+    padding: 2.5rem;
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(0,0,0,.05);
+}
+
+footer.site-footer {
+    background: var(--accent-dark);
+    color: #cbd5e1;
+    padding: 2.5rem 0;
+}
+footer.site-footer a { color: #fff; text-decoration: none; }

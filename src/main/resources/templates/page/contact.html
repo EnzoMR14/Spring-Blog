@@ -1,79 +1,60 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/layout :: head}"></head>
-<body id="page-top">
+<body>
 
 <nav th:replace="~{fragments/layout :: navbar}"></nav>
 
-<div id="contact">
-    <div class="container">
-        <div class="col-xs-12 col-sm-8 col-sm-push-2">
-            <h1>CONTACT US</h1>
-            <hr>
-            <p>Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p>
+<section class="section section-alt">
+    <div class="container" style="max-width: 760px;">
+        <h2 class="section-title">Contacto</h2>
 
-            <form class="form-horizontal" th:action="@{/contact}" th:object="${contactForm}" method="post">
+        <div class="form-card">
+            <form th:action="@{/contact}" th:object="${contactForm}" method="post" class="row g-3">
 
-                <div class="form-group">
-                    <div class="col-xs-6">
-                        <label for="firstName">First Name</label>
-                        <input type="text" id="firstName" class="form-control" th:field="*{firstName}">
-                        <span class="text-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
-                    </div>
-                    <div class="col-xs-6">
-                        <label for="lastName">Last Name</label>
-                        <input type="text" id="lastName" class="form-control" th:field="*{lastName}">
-                    </div>
+                <div class="col-md-6">
+                    <label for="firstName" class="form-label">Nombre</label>
+                    <input type="text" id="firstName" class="form-control" th:field="*{firstName}"
+                           th:classappend="${#fields.hasErrors('firstName')} ? 'is-invalid'">
+                    <div class="invalid-feedback" th:errors="*{firstName}"></div>
                 </div>
 
-                <div class="form-group">
-                    <div class="col-xs-12">
-                        <label for="email">Email</label>
-                        <input type="text" id="email" class="form-control" th:field="*{email}">
-                        <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
-                    </div>
+                <div class="col-md-6">
+                    <label for="lastName" class="form-label">Apellidos</label>
+                    <input type="text" id="lastName" class="form-control" th:field="*{lastName}">
                 </div>
 
-                <div class="form-group">
-                    <div class="col-xs-12">
-                        <label for="subject">Subject</label>
-                        <input type="text" id="subject" class="form-control" th:field="*{subject}">
-                        <span class="text-danger" th:if="${#fields.hasErrors('subject')}" th:errors="*{subject}"></span>
-                    </div>
+                <div class="col-12">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="text" id="email" class="form-control" th:field="*{email}"
+                           th:classappend="${#fields.hasErrors('email')} ? 'is-invalid'">
+                    <div class="invalid-feedback" th:errors="*{email}"></div>
                 </div>
 
-                <div class="form-group">
-                    <div class="col-xs-12">
-                        <label for="message">Message</label>
-                        <textarea id="message" class="form-control" rows="5" th:field="*{message}"></textarea>
-                        <span class="text-danger" th:if="${#fields.hasErrors('message')}" th:errors="*{message}"></span>
-                        <button type="submit" class="pull-right btn btn-lg sr-button">Send</button>
-                    </div>
+                <div class="col-12">
+                    <label for="subject" class="form-label">Asunto</label>
+                    <input type="text" id="subject" class="form-control" th:field="*{subject}"
+                           th:classappend="${#fields.hasErrors('subject')} ? 'is-invalid'">
+                    <div class="invalid-feedback" th:errors="*{subject}"></div>
+                </div>
+
+                <div class="col-12">
+                    <label for="message" class="form-label">Mensaje</label>
+                    <textarea id="message" rows="5" class="form-control" th:field="*{message}"
+                              th:classappend="${#fields.hasErrors('message')} ? 'is-invalid'"></textarea>
+                    <div class="invalid-feedback" th:errors="*{message}"></div>
+                </div>
+
+                <div class="col-12 text-end">
+                    <button type="submit" class="btn btn-accent">Enviar mensaje</button>
                 </div>
             </form>
-
-            <hr class="divider">
-            <div class="address">
-                <h3>GET IN TOUCH</h3>
-                <hr>
-                <p>Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero.</p>
-                <div class="ending text-center">
-                    <ul class="list-inline social-buttons">
-                        <li><a href="#"><i class="fa fa-facebook sr-icons"></i></a></li>
-                        <li><a href="#"><i class="fa fa-twitter sr-icons"></i></a></li>
-                        <li><a href="#"><i class="fa fa-google-plus sr-icons"></i></a></li>
-                    </ul>
-                    <ul class="list-inline contact">
-                        <li class="footer-number"><i class="fa fa-phone sr-icons"></i> (00228)92229954</li>
-                        <li><i class="fa fa-envelope sr-icons"></i> kouvenceslas93@gmail.com</li>
-                    </ul>
-                    <p>Photography Fanatic Template &copy; 2017</p>
-                </div>
-            </div>
         </div>
     </div>
-</div>
+</section>
 
+<footer th:replace="~{fragments/layout :: footer}"></footer>
 <th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+
 </body>
 </html>
