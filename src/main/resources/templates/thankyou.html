@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head}"></head>
+<body id="page-top">
+
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+
+<div id="contact">
+    <div class="container text-center">
+        <h1>THANK YOU!</h1>
+        <p>We have received your message and will reply soon.</p>
+        <a th:href="@{/}" class="btn btn-lg sr-button">Back to home</a>
+    </div>
+</div>
+
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>
