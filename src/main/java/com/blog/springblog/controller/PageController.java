@@ -3,6 +3,7 @@ package com.blog.springblog.controller;
 import com.blog.springblog.dto.ContactForm;
 import com.blog.springblog.entity.Contact;
 import com.blog.springblog.repository.ContactRepository;
+import com.blog.springblog.repository.ImageRepository;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,13 +16,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class PageController {
 
     private final ContactRepository contactRepository;
+    private final ImageRepository imageRepository;
 
-    public PageController(ContactRepository contactRepository) {
+    public PageController(ContactRepository contactRepository, ImageRepository imageRepository) {
         this.contactRepository = contactRepository;
+        this.imageRepository = imageRepository;
     }
 
     @GetMapping("/")
-    public String index() {
+    public String index(Model model) {
+        model.addAttribute("slides", imageRepository.findByInCarouselTrueOrderByUploadedAtDesc());
         return "page/index";
     }
 
