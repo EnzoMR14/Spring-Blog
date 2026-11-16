@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head}"></head>
+<body>
+
+<nav th:replace="~{fragments/layout :: navbar}"></nav>
+
+<section class="section section-alt">
+    <div class="container" style="max-width: 460px;">
+        <h2 class="section-title">Iniciar sesión</h2>
+
+        <div class="form-card">
+            <div class="alert alert-danger" th:if="${param.error}">Email o contraseña incorrectos.</div>
+            <div class="alert alert-success" th:if="${param.registered}">Cuenta creada. Ya puedes entrar.</div>
+
+            <form th:action="@{/login}" method="post" class="row g-3">
+                <div class="col-12">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="text" id="email" name="email" class="form-control" autofocus>
+                </div>
+                <div class="col-12">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <input type="password" id="password" name="password" class="form-control">
+                </div>
+                <div class="col-12 d-grid">
+                    <button type="submit" class="btn btn-accent">Entrar</button>
+                </div>
+                <p class="text-center text-muted mb-0">
+                    ¿No tienes cuenta? <a th:href="@{/register}">Regístrate</a>
+                </p>
+            </form>
+        </div>
+    </div>
+</section>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+
+</body>
+</html>
