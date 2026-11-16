@@ -1,60 +1,89 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/layout :: head}"></head>
-<body>
+  <head th:replace="~{fragments/layout :: head}"></head>
+  <body>
+    <nav th:replace="~{fragments/layout :: navbar}"></nav>
 
-<nav th:replace="~{fragments/layout :: navbar}"></nav>
-
-<section class="section section-alt">
-    <div class="container" style="max-width: 760px;">
+    <section class="section section-alt">
+      <div class="container" style="max-width: 760px">
         <h2 class="section-title">Contacto</h2>
 
         <div class="form-card">
-            <form th:action="@{/contact}" th:object="${contactForm}" method="post" class="row g-3">
+          <form
+            th:action="@{/contact}"
+            th:object="${contactForm}"
+            method="post"
+            class="row g-3"
+          >
+            <div class="col-md-6">
+              <label for="firstName" class="form-label">Nombre</label>
+              <input
+                type="text"
+                id="firstName"
+                class="form-control"
+                th:field="*{firstName}"
+                th:classappend="${#fields.hasErrors('firstName')} ? 'is-invalid'"
+              />
+              <div class="invalid-feedback" th:errors="*{firstName}"></div>
+            </div>
 
-                <div class="col-md-6">
-                    <label for="firstName" class="form-label">Nombre</label>
-                    <input type="text" id="firstName" class="form-control" th:field="*{firstName}"
-                           th:classappend="${#fields.hasErrors('firstName')} ? 'is-invalid'">
-                    <div class="invalid-feedback" th:errors="*{firstName}"></div>
-                </div>
+            <div class="col-md-6">
+              <label for="lastName" class="form-label">Apellidos</label>
+              <input
+                type="text"
+                id="lastName"
+                class="form-control"
+                th:field="*{lastName}"
+              />
+            </div>
 
-                <div class="col-md-6">
-                    <label for="lastName" class="form-label">Apellidos</label>
-                    <input type="text" id="lastName" class="form-control" th:field="*{lastName}">
-                </div>
+            <div class="col-12">
+              <label for="email" class="form-label">Email</label>
+              <input
+                type="text"
+                id="email"
+                class="form-control"
+                th:field="*{email}"
+                th:classappend="${#fields.hasErrors('email')} ? 'is-invalid'"
+              />
+              <div class="invalid-feedback" th:errors="*{email}"></div>
+            </div>
 
-                <div class="col-12">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="text" id="email" class="form-control" th:field="*{email}"
-                           th:classappend="${#fields.hasErrors('email')} ? 'is-invalid'">
-                    <div class="invalid-feedback" th:errors="*{email}"></div>
-                </div>
+            <div class="col-12">
+              <label for="subject" class="form-label">Asunto</label>
+              <input
+                type="text"
+                id="subject"
+                class="form-control"
+                th:field="*{subject}"
+                th:classappend="${#fields.hasErrors('subject')} ? 'is-invalid'"
+              />
+              <div class="invalid-feedback" th:errors="*{subject}"></div>
+            </div>
 
-                <div class="col-12">
-                    <label for="subject" class="form-label">Asunto</label>
-                    <input type="text" id="subject" class="form-control" th:field="*{subject}"
-                           th:classappend="${#fields.hasErrors('subject')} ? 'is-invalid'">
-                    <div class="invalid-feedback" th:errors="*{subject}"></div>
-                </div>
+            <div class="col-12">
+              <label for="message" class="form-label">Mensaje</label>
+              <textarea
+                id="message"
+                rows="5"
+                class="form-control"
+                th:field="*{message}"
+                th:classappend="${#fields.hasErrors('message')} ? 'is-invalid'"
+              ></textarea>
+              <div class="invalid-feedback" th:errors="*{message}"></div>
+            </div>
 
-                <div class="col-12">
-                    <label for="message" class="form-label">Mensaje</label>
-                    <textarea id="message" rows="5" class="form-control" th:field="*{message}"
-                              th:classappend="${#fields.hasErrors('message')} ? 'is-invalid'"></textarea>
-                    <div class="invalid-feedback" th:errors="*{message}"></div>
-                </div>
-
-                <div class="col-12 text-end">
-                    <button type="submit" class="btn btn-accent">Enviar mensaje</button>
-                </div>
-            </form>
+            <div class="col-12 text-end">
+              <button type="submit" class="btn btn-accent">
+                Enviar mensaje
+              </button>
+            </div>
+          </form>
         </div>
-    </div>
-</section>
+      </div>
+    </section>
 
-<footer th:replace="~{fragments/layout :: footer}"></footer>
-<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
-
-</body>
+    <footer th:replace="~{fragments/layout :: footer}"></footer>
+    <th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+  </body>
 </html>

@@ -18,10 +18,11 @@ Java 21, Spring Boot, Spring Data JPA, Spring Security, Thymeleaf, MySQL, Bootst
 ## Cómo ejecutarlo
 
 1. Tener MySQL en marcha y crear la base de datos `springblog`.
-2. Configurar usuario y contraseña de MySQL en `src/main/resources/application.properties`.
-3. Arrancar:
+2. Copiar `src/main/resources/application-local.properties.example` a
+   `application-local.properties` y poner tu usuario y contraseña de MySQL.
+3. Arrancar con el perfil local:
    ```bash
-   ./mvnw spring-boot:run
+   ./mvnw spring-boot:run -Dspring-boot.run.profiles=local
    ```
 4. Abrir http://localhost:8081
 
