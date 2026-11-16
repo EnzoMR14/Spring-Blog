@@ -13,17 +13,19 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/admin/**").hasRole("ADMIN")
-                .requestMatchers("/blog/new").hasRole("ADMIN")      // ← nueva
-                .anyRequest().permitAll())
-            .formLogin(form -> form
-                .loginPage("/login")
-                .usernameParameter("email")
-                .defaultSuccessUrl("/", true)
-                .permitAll())
-            .logout(logout -> logout
-                .logoutSuccessUrl("/"));
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/blog/new").hasRole("ADMIN")
+                        .requestMatchers("/blog/*/comments/*/delete").hasRole("ADMIN")
+                        .requestMatchers("/blog/*/comments").authenticated()
+                        .anyRequest().permitAll())
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .usernameParameter("email")
+                        .defaultSuccessUrl("/", true)
+                        .permitAll())
+                .logout(logout -> logout
+                        .logoutSuccessUrl("/"));
         return http.build();
     }
 

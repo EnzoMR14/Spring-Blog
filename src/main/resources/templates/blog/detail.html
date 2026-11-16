@@ -1,5 +1,9 @@
 <!doctype html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html
+  lang="es"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
   <head th:replace="~{fragments/layout :: head}"></head>
   <body>
     <nav th:replace="~{fragments/layout :: navbar}"></nav>
@@ -27,6 +31,77 @@
           th:text="${post.content}"
         >
           Contenido
+        </div>
+
+        <!-- Comentarios -->
+        <div id="comentarios" class="mt-5">
+          <h4 class="mb-4">
+            Comentarios (<span th:text="${#lists.size(comments)}">0</span>)
+          </h4>
+
+          <p class="text-muted" th:if="${#lists.isEmpty(comments)}">
+            Sé el primero en comentar.
+          </p>
+
+          <div class="feature-card mb-3" th:each="c : ${comments}">
+            <div class="d-flex justify-content-between">
+              <strong th:text="${c.author.name}">Usuario</strong>
+              <small
+                class="text-muted"
+                th:text="${#temporals.format(c.createdAt, 'dd/MM/yyyy HH:mm')}"
+                >fecha</small
+              >
+            </div>
+            <p
+              class="mb-2 mt-2"
+              style="white-space: pre-line"
+              th:text="${c.content}"
+            >
+              Texto
+            </p>
+
+            <form
+              sec:authorize="hasRole('ADMIN')"
+              th:action="@{'/blog/' + ${post.id} + '/comments/' + ${c.id} + '/delete'}"
+              method="post"
+              onsubmit="return confirm('¿Eliminar este comentario?');"
+            >
+              <button type="submit" class="btn btn-outline-danger btn-sm">
+                <i class="bi bi-trash"></i> Eliminar
+              </button>
+            </form>
+          </div>
+
+          <!-- Formulario: solo usuarios identificados -->
+          <div sec:authorize="isAuthenticated()" class="form-card mt-4">
+            <h5>Deja tu comentario</h5>
+            <form
+              th:action="@{'/blog/' + ${post.id} + '/comments'}"
+              th:object="${commentForm}"
+              method="post"
+            >
+              <textarea
+                rows="4"
+                class="form-control mb-2"
+                th:field="*{content}"
+                th:classappend="${#fields.hasErrors('content')} ? 'is-invalid'"
+              ></textarea>
+              <div
+                class="invalid-feedback d-block mb-2"
+                th:errors="*{content}"
+              ></div>
+              <button type="submit" class="btn btn-accent">Comentar</button>
+            </form>
+          </div>
+
+          <!-- Anónimos -->
+          <div
+            sec:authorize="!isAuthenticated()"
+            class="alert alert-secondary mt-4"
+          >
+            <a th:href="@{/login}">Inicia sesión</a> o
+            <a th:href="@{/register}">regístrate</a> para comentar.
+          </div>
         </div>
       </div>
     </section>
