@@ -10,6 +10,7 @@ Aplicación web hecha con Spring Boot y Thymeleaf para la actividad "Tu App vita
 - Zona de administradores para gestionar imágenes (subir, borrar, elegir las de portada)
 - Portada con carrusel administrable desde el panel
 - Panel de administración de mensajes de contacto
+- Blog con entradas paginadas y comentarios (solo usuarios registrados; el admin modera)
 
 ## Tecnologías
 
@@ -22,7 +23,7 @@ Java 21, Spring Boot, Spring Data JPA, Spring Security, Thymeleaf, MySQL, Bootst
    `application-local.properties` y poner tu usuario y contraseña de MySQL.
 3. Arrancar con el perfil local:
    ```bash
-   ./mvnw spring-boot:run -Dspring-boot.run.profiles=local
+   ./mvnw spring-boot:run
    ```
 4. Abrir http://localhost:8081
 
@@ -46,4 +47,4 @@ Java 21, Spring Boot, Spring Data JPA, Spring Security, Thymeleaf, MySQL, Bootst
 
 ## Autor
 
-[Tu nombre]
+[Enzo Montoliu Rodrigo]
