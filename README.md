@@ -11,6 +11,7 @@ Aplicación web hecha con Spring Boot y Thymeleaf para la actividad "Tu App vita
 - Portada con carrusel administrable desde el panel
 - Panel de administración de mensajes de contacto
 - Blog con entradas paginadas y comentarios (solo usuarios registrados; el admin modera)
+- Blog: cualquier usuario registrado puede publicar entradas y comentar; el admin modera los comentarios
 
 ## Tecnologías
 
@@ -42,6 +43,8 @@ Java 21, Spring Boot, Spring Data JPA, Spring Security, Thymeleaf, MySQL, Bootst
 | ------------------------- | -------------------- |
 | `/`, `/about`, `/contact` | Público              |
 | `/login`, `/register`     | Público              |
+| `/blog`                   | Público              |
+| `/blog/new`               | Registrados          |
 | `/admin/images`           | Solo administradores |
 | `/admin/contacts`         | Solo administradores |
 

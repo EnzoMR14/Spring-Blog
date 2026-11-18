@@ -1,5 +1,9 @@
 <!doctype html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html
+  lang="es"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
   <head th:replace="~{fragments/layout :: head}"></head>
   <body>
     <nav th:replace="~{fragments/layout :: navbar}"></nav>
@@ -7,6 +11,17 @@
     <section class="section section-alt">
       <div class="container" style="max-width: 820px">
         <h2 class="section-title">Blog</h2>
+        <div class="text-end mb-4" sec:authorize="isAuthenticated()">
+          <a th:href="@{/blog/new}" class="btn btn-accent">
+            <i class="bi bi-pencil-square"></i> Escribir una entrada
+          </a>
+        </div>
+
+        <p class="text-center text-muted" sec:authorize="!isAuthenticated()">
+          <a th:href="@{/login}">Inicia sesión</a> o
+          <a th:href="@{/register}">regístrate</a> para escribir tu propia
+          entrada.
+        </p>
 
         <p class="text-muted text-center" th:if="${posts.empty}">
           Todavía no hay entradas.
