@@ -1,6 +1,7 @@
 package com.blog.springblog.entity;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "contact")
@@ -23,6 +24,11 @@ public class Contact {
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String message;
+
+    @Column(columnDefinition = "TEXT")
+    private String reply;
+
+    private LocalDateTime repliedAt;
 
     // Getters y Setters
     public Long getId() {
@@ -72,4 +78,9 @@ public class Contact {
     public void setMessage(String message) {
         this.message = message;
     }
+    public String getReply() { return reply; }
+    public void setReply(String reply) { this.reply = reply; }
+
+    public LocalDateTime getRepliedAt() { return repliedAt; }
+    public void setRepliedAt(LocalDateTime repliedAt) { this.repliedAt = repliedAt; }
 }

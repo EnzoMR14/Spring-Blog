@@ -1,55 +1,74 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
+
 <head th:replace="~{fragments/layout :: head}"></head>
+
 <body>
 
-<nav th:replace="~{fragments/layout :: navbar}"></nav>
+    <nav th:replace="~{fragments/layout :: navbar}"></nav>
 
-<section class="section section-alt">
-    <div class="container">
-        <h2 class="section-title">Mensajes de contacto</h2>
+    <section class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">Mensajes de contacto</h2>
 
-        <div class="alert alert-success" th:if="${ok}" th:text="${ok}"></div>
+            <div class="alert alert-success" th:if="${ok}" th:text="${ok}"></div>
 
-        <p class="text-muted text-center" th:if="${#lists.isEmpty(contacts)}">
-            Todavía no has recibido ningún mensaje.
-        </p>
+            <p class="text-muted text-center" th:if="${#lists.isEmpty(contacts)}">
+                Todavía no has recibido ningún mensaje.
+            </p>
 
-        <div class="accordion" id="mensajes" th:unless="${#lists.isEmpty(contacts)}">
-            <div class="accordion-item" th:each="c : ${contacts}">
-                <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button"
-                            data-bs-toggle="collapse"
+            <div class="accordion" id="mensajes" th:unless="${#lists.isEmpty(contacts)}">
+                <div class="accordion-item" th:each="c : ${contacts}">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                             th:attr="data-bs-target='#msg-' + ${c.id}">
-                        <span class="me-3 text-muted" th:text="'#' + ${c.id}">#1</span>
-                        <strong class="me-2" th:text="${c.subject}">Asunto</strong>
-                        <small class="text-muted"
-                               th:text="'— ' + ${c.firstName} + ' ' + ${c.lastName != null ? c.lastName : ''}">Nombre</small>
-                    </button>
-                </h2>
-                <div th:id="'msg-' + ${c.id}" class="accordion-collapse collapse" data-bs-parent="#mensajes">
-                    <div class="accordion-body">
-                        <p class="mb-2">
-                            <i class="bi bi-envelope"></i>
-                            <a th:href="'mailto:' + ${c.email}" th:text="${c.email}">email</a>
-                        </p>
-                        <p style="white-space: pre-line;" th:text="${c.message}">Mensaje</p>
+                            <span class="me-3 text-muted" th:text="'#' + ${c.id}">#1</span>
+                            <strong class="me-2" th:text="${c.subject}">Asunto</strong>
+                            <small class="text-muted"
+                                th:text="'— ' + ${c.firstName} + ' ' + ${c.lastName != null ? c.lastName : ''}">Nombre</small>
+                        </button>
+                    </h2>
+                    <div th:id="'msg-' + ${c.id}" class="accordion-collapse collapse" data-bs-parent="#mensajes">
+                        <div class="accordion-body">
+                            <p class="mb-2">
+                                <i class="bi bi-envelope"></i>
+                                <a th:href="'mailto:' + ${c.email}" th:text="${c.email}">email</a>
+                            </p>
+                            <p style="white-space: pre-line;" th:text="${c.message}">Mensaje</p>
+                            <!-- Respuesta ya enviada -->
+                            <div class="alert alert-success" th:if="${c.reply != null}">
+                                <strong>Respondido</strong>
+                                <span class="text-muted small"
+                                    th:text="'· ' + ${#temporals.format(c.repliedAt, 'dd/MM/yyyy HH:mm')}">fecha</span>
+                                <p class="mb-0 mt-2" style="white-space: pre-line;" th:text="${c.reply}">Respuesta</p>
+                            </div>
 
-                        <form th:action="@{'/admin/contacts/' + ${c.id} + '/delete'}" method="post"
-                              onsubmit="return confirm('¿Eliminar este mensaje?')">
-                            <button type="submit" class="btn btn-outline-danger btn-sm">
-                                <i class="bi bi-trash"></i> Eliminar
-                            </button>
-                        </form>
+                            <!-- Formulario de respuesta -->
+                            <form th:action="@{'/admin/contacts/' + ${c.id} + '/reply'}" method="post" class="mb-3">
+                                <label class="form-label"
+                                    th:text="${c.reply == null} ? 'Tu respuesta' : 'Cambiar la respuesta'">Tu
+                                    respuesta</label>
+                                <textarea name="reply" rows="3" class="form-control mb-2" required></textarea>
+                                <button type="submit" class="btn btn-accent btn-sm">
+                                    <i class="bi bi-reply"></i> Guardar respuesta
+                                </button>
+                            </form>
+                            <form th:action="@{'/admin/contacts/' + ${c.id} + '/delete'}" method="post"
+                                onsubmit="return confirm('¿Eliminar este mensaje?')">
+                                <button type="submit" class="btn btn-outline-danger btn-sm">
+                                    <i class="bi bi-trash"></i> Eliminar
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<footer th:replace="~{fragments/layout :: footer}"></footer>
-<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+    <footer th:replace="~{fragments/layout :: footer}"></footer>
+    <th:block th:replace="~{fragments/layout :: scripts}"></th:block>
 
 </body>
+
 </html>

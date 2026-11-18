@@ -5,5 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ContactRepository extends JpaRepository<Contact, Long> {
-    List<Contact> findAllByOrderByIdDesc();   // los más recientes primero
+    List<Contact> findAllByOrderByIdDesc(); // los más recientes primero
+
+    List<Contact> findByEmailIgnoreCaseOrderByIdDesc(String email); // por email ordenado por id descendente
+
 }

@@ -17,6 +17,7 @@ public class SecurityConfig {
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/blog/*/comments/*/delete").hasRole("ADMIN")
                         .requestMatchers("/blog/new", "/blog/*/comments").authenticated()
+                        .requestMatchers("/blog/new", "/blog/*/comments", "/my-messages").authenticated()
                         .anyRequest().permitAll())
                 .formLogin(form -> form
                         .loginPage("/login")
